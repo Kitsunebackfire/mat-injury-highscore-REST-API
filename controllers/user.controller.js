@@ -16,7 +16,9 @@ exports.register__post = [
         const errors = userErrorHandler(err);
         res.status(400).json({ status: "error", errors });
       } else {
-        res.status(201).json({ status: "ok", message: "successful creation" });
+        res
+          .status(201)
+          .json({ status: "ok", message: "successful creation", user });
       }
     });
   },
