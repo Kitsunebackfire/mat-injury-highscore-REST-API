@@ -11,10 +11,6 @@ const userRouter = require("./routes/user.routes");
 app.use("/api", indexRouter);
 app.use("/api/user", userRouter);
 
-app.get("/", (req, res) => {
-  res.send("server up");
-});
-
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
