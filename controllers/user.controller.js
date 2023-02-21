@@ -1,5 +1,6 @@
 const { body } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const User = require("../models/user.model");
 
 const userErrorHandler = require("../utilities/error_handler").userErrorHandler;
 
