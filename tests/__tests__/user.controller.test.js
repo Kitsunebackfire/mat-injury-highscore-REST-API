@@ -34,7 +34,7 @@ describe("User", () => {
         .expect({ status: "ok", message: "successful creation" })
         .expect(201, done);
     });
-    test("should save user to db with encrypted password", function (done) {
+    test("should NOT save INVALID user to db", function (done) {
       request(app)
         .post("/api/users/register")
         .send({
@@ -43,8 +43,7 @@ describe("User", () => {
           password: "password123",
         })
         .expect("Content-Type", /json/)
-        .expect({ status: "ok", message: "successful creation" })
-        .expect(201, done);
+        .expect(422, done);
     });
   });
 });
