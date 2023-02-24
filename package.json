@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --detectOpenHandles --watch",
     "dev": "nodemon app.js"
   },
   "jest": {
