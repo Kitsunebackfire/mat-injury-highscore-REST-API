@@ -64,7 +64,6 @@ exports.login__post = [
       });
     } catch (err) {
       const errors = userErrorHandler(err);
-      console.log(err);
       return res.status(400).json({ status: "error", errors });
     }
   },

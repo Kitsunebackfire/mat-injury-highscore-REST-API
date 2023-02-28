@@ -47,11 +47,40 @@ describe("User", () => {
         .expect("Content-Type", /json/)
         .expect(422, done);
     });
+    test("should NOT save INVALID format user to db MISSING USERNAME", function (done) {
+      request(app)
+        .post("/api/auth/register")
+        .send({
+          email: "tetgmail.com",
+          password: "password123",
+        })
+        .expect("Content-Type", /json/)
+        .expect(422, done);
+    });
+    test("should NOT save INVALID format user to db MISSING EMAIL", function (done) {
+      request(app)
+        .post("/api/auth/register")
+        .send({
+          username: "test",
+          password: "password123",
+        })
+        .expect("Content-Type", /json/)
+        .expect(422, done);
+    });
+    test("should NOT save INVALID format user to db MISSING PASSWORD", function (done) {
+      request(app)
+        .post("/api/auth/register")
+        .send({
+          username: "test",
+          email: "testgd@gmail.com",
+        })
+        .expect("Content-Type", /json/)
+        .expect(400, done);
+    });
   });
   describe("POST /api/auth/login", () => {
     test("should login and recieve status of 200 with proper login credentials", function (done) {
       // previous registration established the login info needed
-
       request(app)
         .post("/api/auth/login")
         .send({ email: "test2@gmail.com", password: "password123" })
@@ -59,11 +88,35 @@ describe("User", () => {
         //.expect({ status: "ok", message: "successful creation" })
         .expect(200, done);
     });
-    test("should receive login error due to invalid login credentials", function (done) {
+    test("should receive login error due to wrong password ", function (done) {
       // previous registration established the login info needed
       request(app)
         .post("/api/auth/login")
         .send({ email: "test@gmail.com", password: "2password123" })
+        .expect("Content-Type", /json/)
+        .expect(400, done);
+    });
+    test("should receive login error due to invalid email", function (done) {
+      // previous registration established the login info needed
+      request(app)
+        .post("/api/auth/login")
+        .send({ email: "testgmail.com", password: "password123" })
+        .expect("Content-Type", /json/)
+        .expect(400, done);
+    });
+    test("should receive login error due to missing email credential", function (done) {
+      // previous registration established the login info needed
+      request(app)
+        .post("/api/auth/login")
+        .send({  password: "password123" })
+        .expect("Content-Type", /json/)
+        .expect(400, done);
+    });
+    test("should receive login error due to missing password credential", function (done) {
+      // previous registration established the login info needed
+      request(app)
+        .post("/api/auth/login")
+        .send({ email: "test@gmail.com" })
         .expect("Content-Type", /json/)
         .expect(400, done);
     });
