@@ -5,7 +5,8 @@ let mongoDb = MongoMemoryServer;
 
 const connect = async () => {
   mongoDb = await MongoMemoryServer.create();
-  const uri = mongoDb.getUri();
+  const uri = mongoDb.getUri();  
+  mongoose.set('strictQuery', true);
   await mongoose.connect(uri);
 };
 
