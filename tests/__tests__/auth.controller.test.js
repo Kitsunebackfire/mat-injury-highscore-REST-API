@@ -6,9 +6,10 @@ const {
   cleanData,
   disconnect,
 } = require("../testUtils/mongoConfigTesting");
+const bcrypt = require("bcrypt");
 
 beforeAll(async () => await connect());
-beforeEach(async () => await cleanData());
+//beforeEach(async () => await cleanData());
 afterAll(async () => await disconnect());
 
 describe("User", () => {
@@ -28,7 +29,7 @@ describe("User", () => {
         .post("/api/auth/register")
         .send({
           username: "test",
-          email: "test@gmail.com",
+          email: "test2@gmail.com",
           password: "password123",
         })
         .expect("Content-Type", /json/)
@@ -48,6 +49,23 @@ describe("User", () => {
     });
   });
   describe("POST /api/auth/login", () => {
-    
-  })
+    test("should login and recieve status of 200 with proper login credentials", function (done) {
+      // previous registration established the login info needed
+
+      request(app)
+        .post("/api/auth/login")
+        .send({ email: "test2@gmail.com", password: "password123" })
+        .expect("Content-Type", /json/)
+        //.expect({ status: "ok", message: "successful creation" })
+        .expect(200, done);
+    });
+    test("should receive login error due to invalid login credentials", function (done) {
+      // previous registration established the login info needed
+      request(app)
+        .post("/api/auth/login")
+        .send({ email: "test@gmail.com", password: "2password123" })
+        .expect("Content-Type", /json/)
+        .expect(400, done);
+    });
+  });
 });

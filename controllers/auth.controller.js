@@ -4,7 +4,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const passwordHasher = require("../utilities/passwordHash");
 
-const userErrorHandler = require("../utilities/error_handler").userErrorHandler;
+const userErrorHandler = require("../utilities/error_handler")
 
 exports.register__post = [
   body("username").trim().escape().isLength({ min: 3 }),
@@ -23,7 +23,7 @@ exports.register__post = [
     user.save((err) => {
       if (err) {
         //console.log(err);
-        const errors = loginErrorHandler(err);
+        const errors = userErrorHandler(err);
         res.status(400).json({ status: "error", errors });
       } else {
         res.status(201).json({ status: "ok", message: "successful creation" });
@@ -33,9 +33,11 @@ exports.register__post = [
 ];
 
 exports.login__post = [
-  body("email").isEmail().normalizeEmail(),
+  body("email").trim().isEmail().normalizeEmail(),
   body("password").trim().escape(),
   async (req, res) => {
+    const errors = validationResult(req);
+
     const email = req.body.email;
     const password = req.body.password;
     try {
@@ -61,7 +63,7 @@ exports.login__post = [
         },
       });
     } catch (err) {
-      const errors = loginErrorHandler(err);
+      const errors = userErrorHandler(err);
       console.log(err);
       return res.status(400).json({ status: "error", errors });
     }

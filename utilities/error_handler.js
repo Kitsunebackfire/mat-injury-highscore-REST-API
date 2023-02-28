@@ -12,3 +12,6 @@ function userErrorHandler(err) {
 
   return errors;
 }
+
+
+module.exports = userErrorHandler;

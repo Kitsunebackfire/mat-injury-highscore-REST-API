@@ -11,10 +11,11 @@ const connect = async () => {
 };
 
 const cleanData = async () => {
-  await mongoose.connection.db.dropDatabase();
 };
 
 const disconnect = async () => {
+    //await mongoose.connection.db.dropDatabase();
+
   await mongoose.disconnect();
   await mongoDb.stop();
 };
