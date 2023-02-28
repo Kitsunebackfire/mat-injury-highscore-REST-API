@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const connect = require("./testUtils/mongoConfigTesting").connect;
 
 const express = require("express");
 

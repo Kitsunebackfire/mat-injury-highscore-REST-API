@@ -25,11 +25,9 @@ const authRouter = require("./routes/auth.routes");
 
 app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
-if (process.env.NODE_ENV !== "test") {
-  app.listen(port, () => {
-    console.log(process.env.NODE_ENV);
+app.listen(port, () => {
     console.log(`listening on port ${port}`);
-  });
-}
+});
+
 
 module.exports = app;

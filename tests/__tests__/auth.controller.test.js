@@ -12,7 +12,7 @@ beforeEach(async () => await cleanData());
 afterAll(async () => await disconnect());
 
 describe("User", () => {
-  describe("POST /api/auth", () => {
+  describe("POST /api/auth/register", () => {
     test("controller should be able to create a new user and encrypt password", async () => {
       const body = {
         username: "test",
@@ -47,4 +47,7 @@ describe("User", () => {
         .expect(422, done);
     });
   });
+  describe("POST /api/auth/login", () => {
+    
+  })
 });
