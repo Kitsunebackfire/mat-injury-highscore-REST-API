@@ -21,10 +21,10 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 //routes
 const indexRouter = require("./routes/index.routes.js");
-const userRouter = require("./routes/user.routes");
+const authRouter = require("./routes/auth.routes");
 
 app.use("/api", indexRouter);
-app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 if (process.env.NODE_ENV !== "test") {
   app.listen(port, () => {
     console.log(process.env.NODE_ENV);

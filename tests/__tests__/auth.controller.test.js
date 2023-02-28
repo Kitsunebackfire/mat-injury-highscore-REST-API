@@ -10,8 +10,9 @@ const {
 beforeAll(async () => await connect());
 beforeEach(async () => await cleanData());
 afterAll(async () => await disconnect());
+
 describe("User", () => {
-  describe("POST /api/users", () => {
+  describe("POST /api/auth", () => {
     test("controller should be able to create a new user and encrypt password", async () => {
       const body = {
         username: "test",
@@ -24,7 +25,7 @@ describe("User", () => {
     });
     test("should save user to db", function (done) {
       request(app)
-        .post("/api/users/register")
+        .post("/api/auth/register")
         .send({
           username: "test",
           email: "test@gmail.com",
@@ -34,9 +35,9 @@ describe("User", () => {
         .expect({ status: "ok", message: "successful creation" })
         .expect(201, done);
     });
-    test("should NOT save INVALID user to db", function (done) {
+    test("should NOT save INVALID format user to db", function (done) {
       request(app)
-        .post("/api/users/register")
+        .post("/api/auth/register")
         .send({
           username: "test",
           email: "tetgmail.com",

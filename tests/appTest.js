@@ -5,10 +5,10 @@ const connect = require("./testUtils/mongoConfigTesting").connect;
 const express = require("express");
 
 const app = express();
-const userRouter = require("../routes/user.routes");
+const authRouter = require("../routes/auth.routes");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 
 module.exports = app;
