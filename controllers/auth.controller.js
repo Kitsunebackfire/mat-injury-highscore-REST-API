@@ -4,13 +4,14 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const passwordHasher = require("../utilities/passwordHash");
 
-const userErrorHandler = require("../utilities/error_handler")
+const userErrorHandler = require("../utilities/error_handler");
 
 exports.register__post = [
   body("username").trim().escape().isLength({ min: 3 }),
   body("email").trim().isEmail().escape(),
   body("password").trim().escape(),
   async (req, res) => {
+    // errors detected via express-validator in the sanitization and escaping prior
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

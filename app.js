@@ -20,14 +20,13 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 //routes
-const indexRouter = require("./routes/index.routes.js");
+const injuryRouter = require("./routes/injury.routes.js");
 const authRouter = require("./routes/auth.routes");
 
-app.use("/api", indexRouter);
+app.use("/api", injuryRouter);
 app.use("/api/auth", authRouter);
 app.listen(port, () => {
-    console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 });
-
 
 module.exports = app;
